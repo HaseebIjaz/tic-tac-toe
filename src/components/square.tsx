@@ -1,15 +1,15 @@
 "use client"
 import React, { useState } from 'react'
+import { SquareValueType } from './board';
 
 type Props = {
-    value?: string;
+    value: SquareValueType;
+    onSquareClick?: () => void;
 }
 
 const Square = (props: Props) => {
-    const [value, setValue] = useState<string | null>(null);
-    const onSquareClick = () => {
-        setValue("X");
-    }
+    const { value, onSquareClick } = props;
+
   return (
     <button className='square' onClick={onSquareClick}>{value}</button>
   )
