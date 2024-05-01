@@ -1,15 +1,18 @@
 "use client";
 import React, { useState } from 'react'
 import Square from './square';
+import { SquareValueType } from './game';
 
-export type SquareValueType = null | "X" | "O";
 
-type Props = {}
+type Props = {
+    squares: SquareValueType[];
+    xIsNext: boolean;
+    onPlay: (squares: SquareValueType[]) => void
+}
 
 const Board = (props: Props) => {
+    const { squares,xIsNext,onPlay } = props;
 
-    const [squares, setSquares] = useState<SquareValueType[]>(new Array<SquareValueType>(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true)
     const numberOfSquares = 9;
     const board = new Array(9).fill("X");
     const numberOfRows = new Array(numberOfSquares / 3).fill(0);
@@ -45,9 +48,7 @@ const Board = (props: Props) => {
         else {
             nextSquares[i] = "O";
         }
-
-        setSquares(nextSquares);
-        setXIsNext((prev) => !prev);
+        onPlay(nextSquares);
     }
 
     const winner = calculateWinner(squares);
