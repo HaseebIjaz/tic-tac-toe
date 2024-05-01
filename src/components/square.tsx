@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { SquareValueType } from './board';
+import { SquareValueType } from './game';
 
 type Props = {
     value: SquareValueType;

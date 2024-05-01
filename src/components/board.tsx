@@ -14,7 +14,6 @@ const Board = (props: Props) => {
     const { squares,xIsNext,onPlay } = props;
 
     const numberOfSquares = 9;
-    const board = new Array(9).fill("X");
     const numberOfRows = new Array(numberOfSquares / 3).fill(0);
 
     const calculateWinner = (squares: SquareValueType[]): SquareValueType => {
@@ -28,7 +27,8 @@ const Board = (props: Props) => {
             [0, 4, 8],
             [2, 4, 6]
         ];
-        for (let i = 0; i < lines.length; ++i) {
+        for (let i = 0; i < lines.length; i++) {
+            console.log({i});
             const [a, b, c] = lines[i];
             if (squares[a] === squares[b] && squares[b] === squares[c]) {
                 return squares[a];

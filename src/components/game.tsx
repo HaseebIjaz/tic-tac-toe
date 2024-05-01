@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react'
 import Board from './board'
 
@@ -6,25 +7,25 @@ export type SquareValueType = null | "X" | "O";
 type Props = {}
 
 const Game = (props: Props) => {
-    const [history, setHistory] = useState(Array(9).fill(null))
-    const [xIsNext, setXIsNext] = useState(true)
+    const [history, setHistory] = useState<SquareValueType[][]>([Array(9).fill(null)])
     const [currentMove, setCurrentMove] = useState(0);
-    const currentSquares = history[history.length - 1];
-    
+    const xIsNext = currentMove % 2 === 0;
+    const currentSquares = history[currentMove];
+    debugger;
+    console.log({currentSquares});
     const handlePlay = (nextSquares: SquareValueType[]) => {
-        setHistory([...history,nextSquares]);
-        setXIsNext((prev) => !prev);
+        const nextHistory = [...history.slice(0,currentMove+1),nextSquares];
+        setHistory(nextHistory);
+        setCurrentMove(nextHistory.length-1);
     }
     const jumpTo = (nextMove:number) => {
-        //TODO
         setCurrentMove(nextMove);
-        setXIsNext(nextMove % 2 === 0);
     }
 
-    const moves = history.map((squares: SquareValueType,_idx:number) => {
+    const moves = history.map((_: SquareValueType[],_idx:number) => {
         let description;
         if(_idx > 0 ){
-            description = 'Go to move #' + moves;
+            description = 'Go to move #' + _idx;
         }
         else{
             description = 'Go to move Game Start';
